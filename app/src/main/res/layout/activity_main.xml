@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ① BACKGROUND IMAGE — fills the entire screen behind everything else -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/padel_background"
+        android:scaleType="centerCrop"
+        android:contentDescription="Padel court background" />
+
+    <!-- Dark overlay so text is readable on top of background -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
+
+    <!-- ② LOGO IMAGE — positioned near the top center -->
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/padel_logo"
+        android:scaleType="fitCenter"
+        android:contentDescription="Padel VAR Logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="60dp" />
+
+    <!-- App title text below logo -->
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PADEL VAR"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.2"
+        app:layout_constraintTop_toBottomOf="@id/logoImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Subtitle -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AI-Powered Video Assistant Referee"
+        android:textColor="#CCFFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- ③ ANIMATED IMAGE — padel ball that bounces -->
+    <ImageView
+        android:id="@+id/animatedBall"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/padel_ball"
+        android:scaleType="fitCenter"
+        android:contentDescription="Animated padel ball"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ④ BUTTON 1 — goes to Live Analysis screen -->
+    <Button
+        android:id="@+id/btnLiveAnalysis"
+        android:layout_width="220dp"
+        android:layout_height="55dp"
+        android:text="▶  LIVE ANALYSIS"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="@drawable/btn_green_bg"
+        app:layout_constraintBottom_toTopOf="@id/btnReplay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- ④ BUTTON 2 — goes to Replay Review screen -->
+    <Button
+        android:id="@+id/btnReplay"
+        android:layout_width="220dp"
+        android:layout_height="55dp"
+        android:text="⏪  REPLAY REVIEW"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="@drawable/btn_outline_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="80dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
