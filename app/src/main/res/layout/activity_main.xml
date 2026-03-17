@@ -73,6 +73,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Phone Call Button — add this above btnLiveAnalysis -->
+    <Button
+        android:id="@+id/btnCall"
+        android:layout_width="220dp"
+        android:layout_height="48dp"
+        android:text="📞  Contact Referee"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        android:background="@drawable/btn_outline_bg"
+        app:layout_constraintBottom_toTopOf="@id/btnLiveAnalysis"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"/>
+
     <!-- ④ BUTTON 1 — goes to Live Analysis screen -->
     <Button
         android:id="@+id/btnLiveAnalysis"

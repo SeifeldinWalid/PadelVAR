@@ -8,6 +8,9 @@ import android.view.animation.AnimationUtils; // Loads our bounce.xml file
 import android.widget.Button;           // Needed to use Button
 import android.widget.ImageView;        // Needed to use ImageView
 import androidx.appcompat.app.AppCompatActivity; // Base class all activities extend
+import android.provider.MediaStore;
+import android.widget.Toast;
+import android.net.Uri;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,6 +69,39 @@ public class MainActivity extends AppCompatActivity {
         btnReplay.setOnClickListener(view -> {
             Intent intent = new Intent(this, ReplayActivity.class);
             startActivity(intent);
+        });
+
+        // ════════════════════════════════════════════
+        // INTENT — Phone Call
+        // ACTION_DIAL opens the phone dialer with the
+        // number already filled in — user just presses
+        // the green call button to confirm the call.
+        // This does NOT call automatically, it just
+        // opens the dialer for safety.
+        // ════════════════════════════════════════════
+        Button btnCall = findViewById(R.id.btnCall);
+        btnCall.setOnClickListener(view -> {
+            // Replace +201234567890 with your actual phone number
+            // Format: + then country code then number, no spaces
+            Uri phoneNumber = Uri.parse("tel:+201271329650");
+            Intent callIntent = new Intent(Intent.ACTION_DIAL, phoneNumber);
+            startActivity(callIntent);
+        });
+
+        // ════════════════════════════════════════════
+        // BONUS INTENT — Long press logo to open Camera
+        // ACTION_IMAGE_CAPTURE opens the phone's camera
+        // ════════════════════════════════════════════
+        ImageView logoImage = findViewById(R.id.logoImage);
+        logoImage.setOnLongClickListener(view -> {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            // Check if a camera app exists before opening
+            if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(cameraIntent);
+            } else {
+                Toast.makeText(this, "No camera found", Toast.LENGTH_SHORT).show();
+            }
+            return true; // true means "yes I handled the long press"
         });
     }
 
