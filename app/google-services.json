@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "326260918404",
+    "project_id": "padelvar-b0c1f",
+    "storage_bucket": "padelvar-b0c1f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326260918404:android:e1d572bb26dd515a9ddad1",
+        "android_client_info": {
+          "package_name": "com.example.padelVAR"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "YOUR_API_KEY_HERE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

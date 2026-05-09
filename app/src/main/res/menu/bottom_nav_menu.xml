@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/menu/bottom_nav_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_nav_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_live"
+        android:icon="@drawable/ic_nav_live"
+        android:title="Live" />
+
+    <item
+        android:id="@+id/nav_replay"
+        android:icon="@drawable/ic_nav_replay"
+        android:title="Replay" />
+
+    <item
+        android:id="@+id/nav_courts"
+        android:icon="@drawable/ic_nav_courts"
+        android:title="Courts" />
+
+</menu>

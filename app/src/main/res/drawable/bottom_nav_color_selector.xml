@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/bottom_nav_color_selector.xml -->
+<!-- This makes selected nav items teal (#64FFDA) and unselected items grey -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#64FFDA" android:state_checked="true" />
+    <item android:color="#888888" />
+</selector>
