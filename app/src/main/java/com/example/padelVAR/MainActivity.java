@@ -1,70 +1,64 @@
-package com.example.padelVAR; // ← Change this to match YOUR package name
+package com.example.padelVAR;
 
-import android.content.Intent;           // Needed to switch between screens
-import android.media.MediaPlayer;        // Needed to play sound
-import android.os.Bundle;               // Needed for onCreate
-import android.view.animation.Animation; // Needed for animation
-import android.view.animation.AnimationUtils; // Loads our bounce.xml file
-import android.widget.Button;           // Needed to use Button
-import android.widget.ImageView;        // Needed to use ImageView
-import androidx.appcompat.app.AppCompatActivity; // Base class all activities extend
-import android.provider.MediaStore;
-import android.widget.Toast;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Declare variables at the top — think of these as "boxes" that hold things
-    private MediaPlayer mediaPlayer;  // Will hold our sound
-    private ImageView animatedBall;   // Will hold the ball image
-    private Button btnLiveAnalysis;   // Will hold button 1
-    private Button btnReplay;         // Will hold button 2
+    // Fields — "boxes" that hold our views and sound
+    private MediaPlayer mediaPlayer;
+    private ImageView   animatedBall;
+    private Button      btnLiveAnalysis;
+    private Button      btnReplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // onCreate() is called AUTOMATICALLY when this screen opens
-        // This is where you set everything up
-
-        super.onCreate(savedInstanceState); // Always call this first — required
-        setContentView(R.layout.activity_main); // Connect this Java file to the XML layout
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         // ════════════════════════════════════════════
         // STEP A: Connect Java variables to XML views
-        // R.id.xxx must match the android:id in your XML
         // ════════════════════════════════════════════
-        animatedBall   = findViewById(R.id.animatedBall);
+        animatedBall    = findViewById(R.id.animatedBall);
         btnLiveAnalysis = findViewById(R.id.btnLiveAnalysis);
-        btnReplay      = findViewById(R.id.btnReplay);
+        btnReplay       = findViewById(R.id.btnReplay);
 
         // ════════════════════════════════════════════
         // STEP B: Play intro sound when app opens
-        // R.raw.intro_sound looks for intro_sound.mp3 in res/raw/
         // ════════════════════════════════════════════
         mediaPlayer = MediaPlayer.create(this, R.raw.intro_sound);
         if (mediaPlayer != null) {
-            mediaPlayer.start(); // Start playing immediately
+            mediaPlayer.start();
         }
 
         // ════════════════════════════════════════════
         // STEP C: Load and start the bounce animation
-        // AnimationUtils.loadAnimation reads our bounce.xml file
         // ════════════════════════════════════════════
         Animation bounceAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        animatedBall.startAnimation(bounceAnim); // Apply the animation to the ball image
+        animatedBall.startAnimation(bounceAnim);
 
         // ════════════════════════════════════════════
-        // STEP D: Set up Button 1 — goes to LiveAnalysisActivity
-        // setOnClickListener means "when this button is tapped, do this"
+        // STEP D: Button 1 — go to LiveAnalysisActivity
         // ════════════════════════════════════════════
         btnLiveAnalysis.setOnClickListener(view -> {
-            // Intent = a message that says "I want to open THIS activity"
-            // 'this' = current screen, LiveAnalysisActivity.class = destination screen
             Intent intent = new Intent(this, LiveAnalysisActivity.class);
-            startActivity(intent); // Actually opens the new screen
+            startActivity(intent);
         });
 
         // ════════════════════════════════════════════
-        // STEP E: Set up Button 2 — goes to ReplayActivity
+        // STEP E: Button 2 — go to ReplayActivity
         // ════════════════════════════════════════════
         btnReplay.setOnClickListener(view -> {
             Intent intent = new Intent(this, ReplayActivity.class);
@@ -74,44 +68,80 @@ public class MainActivity extends AppCompatActivity {
         // ════════════════════════════════════════════
         // INTENT — Phone Call
         // ACTION_DIAL opens the phone dialer with the
-        // number already filled in — user just presses
-        // the green call button to confirm the call.
-        // This does NOT call automatically, it just
-        // opens the dialer for safety.
+        // number pre-filled. User must press the green
+        // call button to actually place the call.
         // ════════════════════════════════════════════
         Button btnCall = findViewById(R.id.btnCall);
         btnCall.setOnClickListener(view -> {
-            // Replace +201234567890 with your actual phone number
-            // Format: + then country code then number, no spaces
             Uri phoneNumber = Uri.parse("tel:+201271329650");
             Intent callIntent = new Intent(Intent.ACTION_DIAL, phoneNumber);
             startActivity(callIntent);
         });
 
         // ════════════════════════════════════════════
-        // BONUS INTENT — Long press logo to open Camera
-        // ACTION_IMAGE_CAPTURE opens the phone's camera
+        // BONUS INTENT — Long press logo opens Camera
         // ════════════════════════════════════════════
         ImageView logoImage = findViewById(R.id.logoImage);
         logoImage.setOnLongClickListener(view -> {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            // Check if a camera app exists before opening
             if (cameraIntent.resolveActivity(getPackageManager()) != null) {
                 startActivity(cameraIntent);
             } else {
                 Toast.makeText(this, "No camera found", Toast.LENGTH_SHORT).show();
             }
-            return true; // true means "yes I handled the long press"
+            return true;
+        });
+
+        // ════════════════════════════════════════════
+        // STEP F: Wire up the bottom navigation
+        // (the METHOD is defined below — this just CALLS it)
+        // ════════════════════════════════════════════
+        setupBottomNavigation();
+    }
+    // ────────── END OF onCreate ──────────
+
+
+    // ════════════════════════════════════════════════════════════
+    // setupBottomNavigation()
+    // Declared at the CLASS level (sibling of onCreate),
+    // NOT inside onCreate. Methods can't be nested in Java.
+    // ════════════════════════════════════════════════════════════
+    private void setupBottomNavigation() {
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
+        bottomNav.setSelectedItemId(R.id.nav_home); // Home is the active tab on this screen
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                // Already on home — do nothing
+                return true;
+            }
+            if (id == R.id.nav_live) {
+                startActivity(new Intent(this, LiveAnalysisActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            if (id == R.id.nav_replay) {
+                startActivity(new Intent(this, ReplayActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            if (id == R.id.nav_courts) {
+                startActivity(new Intent(this, NearbyPadelCourtsActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            return false;
         });
     }
 
+
     @Override
     protected void onDestroy() {
-        // onDestroy() is called when the screen is closed/destroyed
-        // ALWAYS release MediaPlayer here to free memory — very important!
         super.onDestroy();
         if (mediaPlayer != null) {
-            mediaPlayer.release(); // Free the memory used by sound
+            mediaPlayer.release(); // Free memory used by sound
             mediaPlayer = null;
         }
     }
